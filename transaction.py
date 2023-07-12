@@ -4,7 +4,7 @@ import math
 
 class Transaction:
 
-    def __init__(self, date, description, amount, source, cate=category.Category.其他, recurring=False,
+    def __init__(self, date, description, amount, source, cate=category.Category.Other, recurring=False,
                  recurring_date_start='', recurring_date_end=''):
         self.date = date
         self.description = description
@@ -23,27 +23,27 @@ class Transaction:
     def find_super_category(self):
         val = math.floor(self.category.value / 10)
         if val == 1:
-            return '住房'
+            return 'Living'
         elif val == 2:
-            return 'subscription'
+            return 'Subscription'
         elif val == 3:
-            return '饮食'
+            return 'Food'
         elif val == 4:
-            return '生活用品'
+            return 'Daily'
         elif val == 5:
-            return '文娱'
+            return 'Entertainment'
         elif val == 6:
-            return '日常出行'
+            return 'Transportation'
         elif val == 7:
-            return '旅行'
+            return 'Travel'
         elif val == 8:
-            return '医疗'
+            return 'Medicare'
         elif val == 9:
-            return 'social'
+            return 'Social'
         elif val == 10:
-            return '宠物'
+            return 'Pet'
         elif val == 11:
-            return '其他'
+            return 'Other'
 
     def to_string(self):
         return ", ".join(self.to_list())

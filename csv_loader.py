@@ -1,4 +1,5 @@
 import csv
+import category
 
 class CsvLoader:
 
@@ -18,3 +19,19 @@ class CsvLoader:
                 else:
                     self.data.append(row)
 
+    def read_category_helper(self):
+        category_dict = {}
+        with open(self.file_name, encoding='utf-8-sig') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            for row in csv_reader:
+                cate = category.Category[row[0]]
+
+                for keyword in row[1:]:
+                    keyword = keyword.lower()
+                    if keyword == '':
+                        continue
+                    if keyword in category_dict:
+                        raise Exception("duplicate keyword detected: " + keyword)
+                    else:
+                        category_dict[keyword] = cate
+        return category_dict

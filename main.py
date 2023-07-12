@@ -14,6 +14,7 @@ import discover_parser
 
 resource_dir = "./resources"
 output_dir = "./output"
+category_file = "./resources/category.csv"
 
 
 def process_file_name(name):
@@ -36,6 +37,9 @@ if __name__ == '__main__':
     file_list = os.listdir(resource_dir)
     print(file_list)
 
+    category_loader = csv_loader.CsvLoader(category_file)
+    category_dict = category_loader.read_category_helper()
+
     all_transactions = []
 
     for file_name in file_list:
@@ -45,11 +49,11 @@ if __name__ == '__main__':
         loader = csv_loader.CsvLoader(resource_dir + "/" + file_name)
         loader.read()
         if processed_file_name[0].lower() == 'boa':
-            parser = boa_parser.BoaDataParser(loader.data, processed_file_name[2])
+            parser = boa_parser.BoaDataParser(loader.data, processed_file_name[2], category_dict)
         elif processed_file_name[0].lower() == 'discover':
-            parser = discover_parser.DiscoverDataParser(loader.data, processed_file_name[2])
+            parser = discover_parser.DiscoverDataParser(loader.data, processed_file_name[2], category_dict)
         elif processed_file_name[0].lower() == 'chase':
-            parser = chase_parser.ChaseDataParser(loader.data, processed_file_name[2])
+            parser = chase_parser.ChaseDataParser(loader.data, processed_file_name[2], category_dict)
         else:
             continue
         parser.parse()
